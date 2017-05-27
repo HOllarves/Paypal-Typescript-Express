@@ -29,10 +29,10 @@ export class Server {
 
         //Initializing get route for testroutes
         TestRoute.get(router)
-        Paypal.payment_create(router)
-        Paypal.payment_execute(router)
-
         //Initializing payment_create for paypal
+        Paypal.payment_create(router)
+        //Initializing payment_execute for paypal
+        Paypal.payment_execute(router)
         this.app.use(router)
     }
 
