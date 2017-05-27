@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "Paypal integration prototype",
   "main": "server.js",
+  "engines": {
+    "node": "6.10.3",
+    "npm": "3.10.10"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-dev": "npm run build:live",
     "start": "npm run build:prod",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts",
     "build:prod": "node server.ts"
-  },
-  "engines": {
-    "node": "6.10.3",
-    "npm": ">=1.0.0"
   },
   "author": "Henry Ollarves",
   "license": "ISC",
