@@ -9,16 +9,18 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "tsc",
     "start-dev": "npm run build:live",
     "start": "npm run build:prod",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts",
-    "build:prod": "node server.ts"
+    "build:prod": "node dist/server.js"
   },
   "author": "Henry Ollarves",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.0.35",
     "express": "^4.15.3",
+    "typescript": "^2.3.3",
     "paypal-rest-sdk": "^1.7.1"
   },
   "devDependencies": {
