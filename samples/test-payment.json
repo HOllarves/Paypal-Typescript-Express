@@ -1,0 +1,19 @@
+{
+    "payment": {
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": "https://paypal-test-integration.herokuapp.com/paypal/execute",
+            "cancel_url": "https://paypal-test-integration.herokuapp.com/paypal/cancel"
+        },
+        "transactions": [{
+            "amount": {
+                "total": "5.00",
+                "currency": "USD"
+            },
+            "description": "My awesome payment"
+        }]
+    }
+}

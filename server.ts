@@ -1,9 +1,12 @@
 import * as Express from 'express'
-import TestRoute from './routes/test_route'
+import * as BodyParser from 'body-parser'
+import { TestRoute } from './routes/test_route'
+import { Paypal } from './routes/paypal'
 
 export class Server {
 
     public app: Express.Application
+
 
     public static bootstrap(): Server {
         return new Server()
@@ -11,6 +14,7 @@ export class Server {
 
     constructor(){
         this.app = Express()
+        this.app.use(BodyParser.json())
         this.config()
         this.routes()
         this.api()
@@ -22,7 +26,13 @@ export class Server {
 
     public routes(){
         let router = Express.Router()
+
+        //Initializing get route for testroutes
         TestRoute.get(router)
+        Paypal.payment_create(router)
+        Paypal.payment_execute(router)
+
+        //Initializing payment_create for paypal
         this.app.use(router)
     }
 
