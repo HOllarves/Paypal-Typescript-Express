@@ -1,0 +1,19 @@
+{
+    "name": "Fast Speed Agreement",
+    "description": "Agreement for Fast Speed Plan",
+    "start_date": "2017-12-22T09:13:49Z",
+    "plan": {
+        "id": "P-0NJ10521L3680291SOAQIVTQ"
+    },
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "shipping_address": {
+        "line1": "StayBr111idge Suites",
+        "line2": "Cro12ok Street",
+        "city": "San Jose",
+        "state": "CA",
+        "postal_code": "95112",
+        "country_code": "US"
+    }
+}

@@ -1,6 +1,5 @@
 import * as Express from 'express'
 import * as BodyParser from 'body-parser'
-import { TestRoute } from './routes/test_route'
 import { Paypal } from './routes/paypal'
 
 export class Server {
@@ -21,19 +20,23 @@ export class Server {
     }
 
     public api(){
-        return false
-    }
-
-    public routes(){
         let router = Express.Router()
-
-        //Initializing get route for testroutes
-        TestRoute.get(router)
+        //Initializing billing_agreement for paypal
+        Paypal.billing_agreement(router)
+        //Intializing billing_agreement_execute for paypal
+        Paypal.billing_agreement_execute(router)
         //Initializing payment_create for paypal
         Paypal.payment_create(router)
         //Initializing payment_execute for paypal
         Paypal.payment_execute(router)
-        this.app.use(router)
+        //Initializing payment_cancel for paypal
+        Paypal.payment_cancel(router)
+        //Using router
+        this.app.use('/paypal', router)
+    }
+
+    public routes(){
+        return false
     }
 
     public config(){
