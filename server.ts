@@ -11,7 +11,7 @@ export class Server {
         return new Server()
     }
 
-    constructor(){
+    constructor() {
         this.app = Express()
         this.app.use(BodyParser.json())
         this.config()
@@ -19,7 +19,7 @@ export class Server {
         this.api()
     }
 
-    public api(){
+    public api() {
         let router = Express.Router()
         //Initializing billing_agreement for paypal
         Paypal.billing_agreement(router)
@@ -37,11 +37,11 @@ export class Server {
         this.app.use('/paypal', router)
     }
 
-    public routes(){
+    public routes() {
         return false
     }
 
-    public config(){
+    public config() {
         return false
     }
 }
@@ -52,4 +52,3 @@ server.set("port", process.env.PORT || 4500)
 server.listen(server.get("port"), () => {
     console.log("App running on", server.get("port"))
 })
-
