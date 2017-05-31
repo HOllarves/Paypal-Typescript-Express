@@ -23,14 +23,16 @@ export class Server {
         let router = Express.Router()
         //Initializing billing_agreement for paypal
         Paypal.billing_agreement(router)
+        //Initializing billing_agreement_list for paypal
+        Paypal.billing_agreement_list(router)
         //Intializing billing_agreement_execute for paypal
         Paypal.billing_agreement_execute(router)
+        //Initializing billing_agreement_cancel for paypal
+        Paypal.billing_agreement_cancel(router)
         //Initializing payment_create for paypal
         Paypal.payment_create(router)
         //Initializing payment_execute for paypal
         Paypal.payment_execute(router)
-        //Initializing payment_cancel for paypal
-        Paypal.payment_cancel(router)
         //Using router
         this.app.use('/paypal', router)
     }

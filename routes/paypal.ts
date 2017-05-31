@@ -3,21 +3,53 @@ const db = __dirname + "/db.json"
 import *  as fs from 'fs'
 import * as url from 'url'
 import { NextFunction, Request, Response, Router } from "express"
-require('../paypal-config.js')
+require('../paypal-config.ts')
 
 export class Paypal {
 
     constructor() {}
 
-    public static billing_agreement(router: Router) {
+    /**
+     * List all billing agreements
+     * Method: GET
+     * @param router - Express Router
+     */
 
+    public static billing_agreement_list(router: Router) {
+        console.log("Creating Router for [Paypal::billing_agreement_list]")
+        router.get('/billing-agreement/list', (req: Request, res: Response) => {
+            let list_billing_plan = {
+                'status': 'ACTIVE',
+                'page_size': 5,
+                'page': 1,
+                'total_required': 'yes'
+            }
+            PaypalSdk.billingPlan.list(list_billing_plan, (err: any, billingPlans: any) => {
+                if (err) {
+                    console.log(err)
+                    res.send(err)
+                } else {
+                    res.json(billingPlans)
+                }
+            })
+        })
+    }
+
+    /**
+     * Creating billing agreement and billing plan
+     * Method: POST
+     * @param router - Express Router
+     */
+
+    public static billing_agreement(router: Router) {
+        console.log("Creating Router for [Paypal::billing_agreement]")
         var redirectUrl: string
         router.post('/billing-agreement', (req: Request, res: Response) => {
             // Fetching billing agreement. This should come in the post object
             let billing_agreement_obj = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement.json', 'utf-8'))
             if (billing_agreement_obj) {
                 // Fetching billing agreement attributes. This should be fetched from a database
-                let billing_agreement_attributes = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement-attr.json', 'utf-8')) 
+                let billing_agreement_attributes = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement-attr.json', 'utf-8'))
                 // Fetching attribute object that sets the plan to ACTIVE
                 let billing_plan_update_attributes = [{
                     "op": "replace",
@@ -68,10 +100,12 @@ export class Paypal {
 
     /**
      * Executes billing agreement with token
+     * Method: GET
      * @param router - Express router
      */
 
     public static billing_agreement_execute(router: Router) {
+        console.log("Creating Router for [Paypal::billing_agreement_execute]")
         router.get('/billing-agreement/execute', (req: Request, res: Response) => {
             // Fething token from query strings
             let token = req.query.token
@@ -88,14 +122,110 @@ export class Paypal {
         })
     }
 
+    /**
+     * Cancels a specific billing agreement
+     * Method: POST
+     * @param router 
+     */
+
     public static billing_agreement_cancel(router: Router) {
-        router.get('/billing-agreement/cancel', (req: Request, res: Response) => {
-            res.send("Billing agreement canceled!")
+        console.log("Creating Router for [Paypal::billing_agreement_cancel]")
+        router.post('/billing-agreement/cancel', (req: Request, res: Response) => {
+            let cancel_note = { "note": req.body.cancel_note }
+            let billingAgreementId = req.body.billingAgreementId
+            if (billingAgreementId) {
+                PaypalSdk.billingAgreement.cancel(billingAgreementId, cancel_note, (err: any, response: any) => {
+                    if (err) {
+                        console.log(err)
+                        res.send(err)
+                    } else {
+                        console.log("Billing agreement canceled")
+                        console.log(response)
+                        PaypalSdk.billingPlan.get(billingAgreementId, (err: any, billingPlan: any) => {
+                            if (err) {
+                                console.log(err)
+                                res.send(err)
+                            } else {
+                                console.log(billingPlan.state)
+                                res.send(billingPlan.state)
+                            }
+                        })
+                    }
+                })
+            } else {
+                res.json({
+                    status: 404,
+                    message: "Billing Agreement Not Found"
+                })
+            }
+        })
+    }
+
+    /**
+     * Suspends a specific billing agreement
+     * Method: POST
+     * @param router - Express Router 
+     */
+
+    public static billing_agreement_suspend(router: Router) {
+        console.log("Creating Router for [Paypal::billing_agreement_suspend]")
+        router.post('/billing-agreement/suspend', (req: Request, res: Response) => {
+            let suspend_note = { "note": req.body.suspend_note }
+            let billingAgreementId = req.body.billingAgreementId
+
+            if (billingAgreementId) {
+                PaypalSdk.billingAgreement.suspend(billingAgreementId, suspend_note, (err:any, response:any) => {
+                    if(err) {
+                        console.log(err)
+                        res.send(err)
+                    } else {
+                        console.log("Billing agreement " + billingAgreementId + " has been suspended")
+                        res.send(response)
+                    }
+                })
+            } else {
+                res.json({
+                    status: 404,
+                    message: "Billing Agreement Not Found"
+                })
+            }
+        })
+    }
+
+    /**
+     * Reactivates a specific billing agreement
+     * Method: POST
+     * @param router - Express Router 
+     */
+
+    public static billing_agreement_reactivate(router: Router) {
+        console.log("Creating Router for [Paypal::billing_agreement_reactivate]")
+        router.post('/billing-agreement/reactivate', (req: Request, res: Response) => {
+            let reactivate_note = { "note" : req.body.reactivate_note }
+            let billingAgreementId = req.body.billingAgreementId
+
+            if (billingAgreementId) {
+                PaypalSdk.billingAgreement.reactivate(billingAgreementId, reactivate_note, (err:any, response:any) => {
+                    if (err) {
+                        console.log(err)
+                        res.send(err)
+                    } else {
+                        console.log("Billing agreement " + billingAgreementId + " has been reactivated")
+                        res.send(response)
+                    }
+                })
+            } else {
+                res.json({
+                    status: 404,
+                    message: "Billing Agreement Not Found"
+                })
+            }
         })
     }
 
     /**
      * Creates Paypal payment
+     * Method: POST
      * @param router - Express Router
      */
 
@@ -141,6 +271,7 @@ export class Paypal {
 
     /**
      * Executes paypal payment
+     * Method: GET
      * @param router - Express Router
      */
 
@@ -165,17 +296,6 @@ export class Paypal {
                     })
                 }
             })
-        })
-    }
-
-    /**
-     * Executes paypal cancel
-     * @param router - Express Router
-     */
-
-    public static payment_cancel(router: Router) {
-        router.get('/cancel', (req: Request, res: Response) => {
-            res.send("Payment canceled!")
         })
     }
 }
