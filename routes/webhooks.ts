@@ -42,6 +42,7 @@ export class WebHooks extends Paypal {
             console.log("Webhook event!")
             console.log(req.body.event_type)
             console.log(req.body.summary)
+            console.log(req.body.resource.name)
         })
     }
 }

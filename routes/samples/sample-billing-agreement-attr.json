@@ -1,9 +1,9 @@
 {
-    "name": "Fast Speed Agreement", 
-    "description": "Agreement for Fast Speed Plan",
-    "start_date": "2017-12-22T09:13:49Z", //This should be generated when the plan is created.
+    "name": "Some Awesome Agreement",
+    "description": "Some Awesome Description",
+    "start_date": "2017-12-22T09:13:49Z",
     "plan": {
-        "id": "" //Billing agreement ID
+        "id": ""
     },
     "payer": {
         "payment_method": "paypal"
