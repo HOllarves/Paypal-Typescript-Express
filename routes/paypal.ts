@@ -45,6 +45,7 @@ export class Paypal {
         console.log("Creating Router for [Paypal::billing_agreement]")
         var redirectUrl: string
         router.post('/billing-agreement', (req: Request, res: Response) => {
+            console.log("Creating billing plan")
             // Fetching billing agreement. This should come in the post object
             let billing_agreement_obj = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement.json', 'utf-8'))
             if (billing_agreement_obj) {
@@ -64,7 +65,6 @@ export class Paypal {
                         console.log(err)
                         res.send(err)
                     } else {
-                        console.log("Creating billing plan")
                         //If valid billing plan, updating it's state to ACTIVE
                         PaypalSdk.billingPlan.update(billingPlan.id, billing_plan_update_attributes, (err: any, response: any) => {
                             if (err) {
@@ -107,6 +107,7 @@ export class Paypal {
     public static billing_agreement_execute(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_execute]")
         router.get('/billing-agreement/execute', (req: Request, res: Response) => {
+            console.log('executing billing plan')
             // Fething token from query strings
             let token = req.query.token
             if (token) {
@@ -131,6 +132,7 @@ export class Paypal {
     public static billing_agreement_cancel(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_cancel]")
         router.post('/billing-agreement/cancel', (req: Request, res: Response) => {
+            console.log('cancel billing plan')
             let cancel_note = {
                 "note": req.body.cancel_note
             }
@@ -172,6 +174,7 @@ export class Paypal {
     public static billing_agreement_suspend(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_suspend]")
         router.post('/billing-agreement/suspend', (req: Request, res: Response) => {
+            console.log('suspending billing plan')
             let suspend_note = {
                 "note": req.body.suspend_note
             }
@@ -205,6 +208,7 @@ export class Paypal {
     public static billing_agreement_reactivate(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_reactivate]")
         router.post('/billing-agreement/reactivate', (req: Request, res: Response) => {
+            console.log('reactivating billing plan')
             let reactivate_note = {
                 "note": req.body.reactivate_note
             }
