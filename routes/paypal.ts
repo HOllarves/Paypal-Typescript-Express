@@ -3,7 +3,7 @@ const db = __dirname + "/db.json"
 import *  as fs from 'fs'
 import * as url from 'url'
 import { NextFunction, Request, Response, Router } from "express"
-require('../paypal-config.ts')
+require('../paypal-config.js')
 
 export class Paypal {
 
