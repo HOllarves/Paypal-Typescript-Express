@@ -7,7 +7,7 @@ require('../paypal-config.ts')
 
 export class Paypal {
 
-    constructor() {}
+    constructor() { }
 
     /**
      * List all billing agreements
@@ -131,7 +131,9 @@ export class Paypal {
     public static billing_agreement_cancel(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_cancel]")
         router.post('/billing-agreement/cancel', (req: Request, res: Response) => {
-            let cancel_note = { "note": req.body.cancel_note }
+            let cancel_note = {
+                "note": req.body.cancel_note
+            }
             let billingAgreementId = req.body.billingAgreementId
             if (billingAgreementId) {
                 PaypalSdk.billingAgreement.cancel(billingAgreementId, cancel_note, (err: any, response: any) => {
@@ -170,12 +172,14 @@ export class Paypal {
     public static billing_agreement_suspend(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_suspend]")
         router.post('/billing-agreement/suspend', (req: Request, res: Response) => {
-            let suspend_note = { "note": req.body.suspend_note }
+            let suspend_note = {
+                "note": req.body.suspend_note
+            }
             let billingAgreementId = req.body.billingAgreementId
 
             if (billingAgreementId) {
-                PaypalSdk.billingAgreement.suspend(billingAgreementId, suspend_note, (err:any, response:any) => {
-                    if(err) {
+                PaypalSdk.billingAgreement.suspend(billingAgreementId, suspend_note, (err: any, response: any) => {
+                    if (err) {
                         console.log(err)
                         res.send(err)
                     } else {
@@ -201,11 +205,13 @@ export class Paypal {
     public static billing_agreement_reactivate(router: Router) {
         console.log("Creating Router for [Paypal::billing_agreement_reactivate]")
         router.post('/billing-agreement/reactivate', (req: Request, res: Response) => {
-            let reactivate_note = { "note" : req.body.reactivate_note }
+            let reactivate_note = {
+                "note": req.body.reactivate_note
+            }
             let billingAgreementId = req.body.billingAgreementId
 
             if (billingAgreementId) {
-                PaypalSdk.billingAgreement.reactivate(billingAgreementId, reactivate_note, (err:any, response:any) => {
+                PaypalSdk.billingAgreement.reactivate(billingAgreementId, reactivate_note, (err: any, response: any) => {
                     if (err) {
                         console.log(err)
                         res.send(err)

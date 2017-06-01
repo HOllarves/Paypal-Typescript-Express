@@ -1,6 +1,7 @@
 import * as Express from 'express'
 import * as BodyParser from 'body-parser'
 import { Paypal } from './routes/paypal'
+import { WebHooks } from './routes/webhooks'
 
 export class Server {
 
@@ -15,7 +16,7 @@ export class Server {
         this.app = Express()
         this.app.use(BodyParser.json())
         this.config()
-        this.routes()
+        this.webhooks()
         this.api()
     }
 
@@ -37,13 +38,14 @@ export class Server {
         this.app.use('/paypal', router)
     }
 
-    public routes() {
-        return false
+    public webhooks() {
+        let webhooks = new WebHooks
+        let router = Express.Router()
+        webhooks.billing_plans(router)
+
     }
 
-    public config() {
-        return false
-    }
+    public config() { return false }
 }
 
 const server = Server.bootstrap().app
