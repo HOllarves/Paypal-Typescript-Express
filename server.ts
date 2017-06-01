@@ -42,6 +42,7 @@ export class Server {
         let webhooks = new WebHooks
         let router = Express.Router()
         webhooks.billing_plans(router)
+        this.app.use('/webhooks', router)
 
     }
 

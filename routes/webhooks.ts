@@ -37,7 +37,7 @@ export class WebHooks extends Paypal {
     }
 
     public billing_plans(router: Router) {
-        console.log("Creating Router for [Webook::billing_plan_created]")
+        console.log("Creating Router for [Webook::billing_plan_webhooks]")
         router.post('/subscription', (req: Request, res: Response) => {
             console.log("Webhook event!")
             console.log(req)
