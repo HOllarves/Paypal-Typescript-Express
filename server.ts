@@ -30,6 +30,8 @@ export class Server {
         Paypal.billing_agreement_execute(router)
         //Initializing billing_agreement_cancel for paypal
         Paypal.billing_agreement_cancel(router)
+        //Initializing billing_agreement_suspend for paypal
+        Paypal.billing_agreement_suspend(router)
         //Initializing payment_create for paypal
         Paypal.payment_create(router)
         //Initializing payment_execute for paypal

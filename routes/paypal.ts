@@ -136,6 +136,7 @@ export class Paypal {
             let cancel_note = {
                 "note": req.body.cancel_note
             }
+            console.log(req.body)
             let billingAgreementId = req.body.billingAgreementId
             if (billingAgreementId) {
                 PaypalSdk.billingAgreement.cancel(billingAgreementId, cancel_note, (err: any, response: any) => {

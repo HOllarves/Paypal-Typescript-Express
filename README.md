@@ -72,6 +72,18 @@ executing simple paypal payments
         payer_id -> Unique identification of the user creating the payment
     - Executes the payment
 
+## Webhooks
+
+These are all the webhooks currently supported by this implementation of Paypal's API:
+
+- BILLING.PLAN.CREATED
+- BILLING.PLAN.UPDATED
+- BILLING.SUBSCRIPTION.CREATED
+- BILLING.SUBSCRIPTION.CANCELLED
+- BILLING.SUBSCRIPTION.RE-ACTIVATED
+- BILLING.SUBSCRIPTION.SUSPENDED
+- BILLING.SUBSCRIPTION.UPDATED
+
 ## More Information
 
 For more information regarding the structure of the Billing Agreements, please refer to the `samples` folder in `routes/samples`
