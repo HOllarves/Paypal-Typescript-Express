@@ -49,6 +49,8 @@ export class Server {
         let router = Express.Router()
         // Initializing billing_plans for webhooks
         WebHooks.billing_plans(router)
+        // Initializing list for webhooks
+        WebHooks.list_webhooks(router)
         // Exposing endpoint
         this.app.use('/webhooks', router)
     }

@@ -36,6 +36,22 @@ export class WebHooks extends Paypal {
         })
     }
 
+    public static list_webhooks(router: Router) {
+        console.log('Creating Router for [Webook::list_webhooks]')
+        router.get('/', (req: Request, res: Response) => {
+            PaypalSdk.notification.webhook.list((err: any, webhooks: any) => {
+                if (err) {
+                    console.error(JSON.stringify(err.response))
+                } else {
+                    res.json({
+                        status: 200,
+                        data: webhooks
+                    })
+                }
+            })
+        })
+    }
+
     public static billing_plans(router: Router) {
         console.log('Creating Router for [Webook::billing_plan_webhooks]')
         router.post('/subscription', (req: Request, res: Response) => {
