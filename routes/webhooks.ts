@@ -7,7 +7,7 @@ export class WebHooks extends Paypal {
     constructor() { super() }
 
     public static webhookInit() {
-        console.log("Config webhooks!")
+        console.log('Configurating WebHooks')
         let webhooks = {
             url: 'https://paypal-test-integration.herokuapp.com/webhooks/subscription',
             event_types: [{
@@ -28,6 +28,9 @@ export class WebHooks extends Paypal {
         }
         PaypalSdk.notification.webhook.create(webhooks, function (err: any, webhook: any) {
             if (err) {
+                if (err.name == 'WEBHOOK_URL_ALREADY_EXISTS') {
+                    console.log('WebHooks already exist')
+                }
                 console.error(JSON.stringify(err.response));
             } else {
                 console.log('Create webhook Response');
@@ -56,6 +59,7 @@ export class WebHooks extends Paypal {
         console.log('Creating Router for [Webook::billing_plan_webhooks]')
         router.post('/subscription', (req: Request, res: Response) => {
             console.log('Webhook event!')
+            console.log(req.body)
             switch (req.body.event_type) {
                 case 'BILLING.PLAN.CREATED':
                     console.log('Billing plan created!')
