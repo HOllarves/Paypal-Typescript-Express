@@ -4,12 +4,9 @@ const PaypalSdk = require('paypal-rest-sdk')
 
 export class WebHooks extends Paypal {
 
-    constructor() {
-        super()
-        this.webhookInit()
-    }
+    constructor() { super() }
 
-    public webhookInit() {
+    public static webhookInit() {
         console.log("Config webhooks!")
         let webhooks = {
             url: 'https://paypal-test-integration.herokuapp.com/webhooks/subscription',

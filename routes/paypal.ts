@@ -6,11 +6,9 @@ import { Request, Response, Router } from "express"
 
 export class Paypal {
 
-    constructor() {
-        this.config()
-    }
+    constructor() { }
 
-    public config() {
+    public static paypalInit() {
         require('../paypal-config.js')
     }
 

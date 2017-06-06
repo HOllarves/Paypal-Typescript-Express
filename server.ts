@@ -20,6 +20,9 @@ export class Server {
     }
 
     public api() {
+        // Initializing config
+        Paypal.paypalInit()
+        // Initializing router
         let router = Express.Router()
         // Initializing billing_agreement for paypal
         Paypal.billing_agreement(router)
@@ -40,12 +43,14 @@ export class Server {
     }
 
     public webhooks() {
+        // Initializing config
+        WebHooks.webhookInit()
         // Creating router for webooks
         let router = Express.Router()
+        // Initializing billing_plans for webhooks
         WebHooks.billing_plans(router)
         // Exposing endpoint
         this.app.use('/webhooks', router)
-
     }
 }
 
