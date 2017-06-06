@@ -15,8 +15,8 @@ export class Server {
     constructor() {
         this.app = Express()
         this.app.use(BodyParser.json())
-        this.webhooks()
         this.api()
+        this.webhooks()
     }
 
     public api() {
