@@ -2,12 +2,17 @@ const PaypalSdk = require('paypal-rest-sdk')
 const db = __dirname + "/db.json"
 import *  as fs from 'fs'
 import * as url from 'url'
-import { NextFunction, Request, Response, Router } from "express"
-require('../paypal-config.js')
+import { Request, Response, Router } from "express"
 
 export class Paypal {
 
-    constructor() { }
+    constructor() {
+        this.config()
+    }
+
+    public config() {
+        require('../paypal-config.js')
+    }
 
     /**
      * List all billing agreements
