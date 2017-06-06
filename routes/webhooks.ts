@@ -6,7 +6,11 @@ export class WebHooks extends Paypal {
 
     constructor() {
         super()
+        this.webhookInit()
+    }
 
+    public webhookInit() {
+        console.log("Config webhooks!")
         let webhooks = {
             url: 'https://paypal-test-integration.herokuapp.com/webhooks/subscription',
             event_types: [{
@@ -25,7 +29,6 @@ export class WebHooks extends Paypal {
                 name: 'BILLING.SUBSCRIPTION.UPDATED'
             }]
         }
-
         PaypalSdk.notification.webhook.create(webhooks, function (err: any, webhook: any) {
             if (err) {
                 console.error(JSON.stringify(err.response));
@@ -33,10 +36,10 @@ export class WebHooks extends Paypal {
                 console.log('Create webhook Response');
                 console.log(webhook);
             }
-        });
+        })
     }
 
-    public billing_plans(router: Router) {
+    public static billing_plans(router: Router) {
         console.log('Creating Router for [Webook::billing_plan_webhooks]')
         router.post('/subscription', (req: Request, res: Response) => {
             console.log('Webhook event!')

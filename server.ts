@@ -40,11 +40,9 @@ export class Server {
     }
 
     public webhooks() {
-        // Instantiating webhook class
-        let webhooks = new WebHooks
         // Creating router for webooks
         let router = Express.Router()
-        webhooks.billing_plans(router)
+        WebHooks.billing_plans(router)
         // Exposing endpoint
         this.app.use('/webhooks', router)
 
