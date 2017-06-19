@@ -1,7 +1,7 @@
 import * as Express from 'express'
 import * as BodyParser from 'body-parser'
-import { Paypal } from './routes/paypal'
-import { WebHooks } from './routes/webhooks'
+import * as paypalRouter from './routes/paypal'
+import * as webhookRouter from './routes/webhooks'
 
 export class Server {
 
@@ -20,39 +20,14 @@ export class Server {
     }
 
     public api() {
-        // Initializing config
-        Paypal.paypalInit()
-        // Initializing router
-        let router = Express.Router()
-        // Initializing billing_agreement for paypal
-        Paypal.billing_agreement(router)
-        // Initializing billing_agreement_list for paypal
-        Paypal.billing_agreement_list(router)
-        // Intializing billing_agreement_execute for paypal
-        Paypal.billing_agreement_execute(router)
-        // Initializing billing_agreement_cancel for paypal
-        Paypal.billing_agreement_cancel(router)
-        // Initializing billing_agreement_suspend for paypal
-        Paypal.billing_agreement_suspend(router)
-        // Initializing payment_create for paypal
-        Paypal.payment_create(router)
-        // Initializing payment_execute for paypal
-        Paypal.payment_execute(router)
         // Exposing endpoint
-        this.app.use('/paypal', router)
+        this.app.use('/paypal', paypalRouter.default())
     }
 
     public webhooks() {
-        // Initializing config
-        WebHooks.webhookInit()
-        // Creating router for webooks
-        let router = Express.Router()
-        // Initializing billing_plans for webhooks
-        WebHooks.billing_plans(router)
-        // Initializing list for webhooks
-        WebHooks.list_webhooks(router)
+        webhookRouter.default().init()
         // Exposing endpoint
-        this.app.use('/webhooks', router)
+        this.app.use('/webhooks', webhookRouter.default().api)
     }
 }
 

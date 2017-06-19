@@ -1,6 +1,5 @@
-(() => {
-    const PaypalSDK = require('paypal-rest-sdk');
-    console.log("Configuring PaypalSDK")
+module.exports = function (PaypalSDK) {
+    console.log("Configurating PaypalSDK")
     PaypalSDK.configure({
         'mode': 'sandbox', //sandbox or live
         'client_id': 'Af06llQQrJ0OAvPXu2JogElHIWcYxMSqIPLHE9ZvDxgOi-rN6NsHVUXmf0pK5W5C1mgBAU8IvzQ3se8i',
@@ -9,4 +8,4 @@
             'custom': 'header'
         }
     })
-})()
+}
