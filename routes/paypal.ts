@@ -1,7 +1,6 @@
 const PaypalSdk = require('paypal-rest-sdk')
 require('../paypal-config.js')(PaypalSdk)
 const db = __dirname + '/db.json'
-import { PaypalGateway } from '../gateway/paypal-gateway'
 import *  as fs from 'fs'
 import * as url from 'url'
 import { Request, Response, Router } from 'express'
