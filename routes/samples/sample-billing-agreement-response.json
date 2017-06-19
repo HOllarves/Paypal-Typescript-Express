@@ -1,102 +1,94 @@
 {
-    "id": "I-MFTL6KC1URJP",
-    "state": "Active",
+    "name": "Some Awesome Agreement",
     "description": "Some Awesome Description",
-    "payer": {
-        "payment_method": "paypal",
-        "status": "verified",
-        "payer_info": {
-            "email": "achejuega-buyer@gmail.com",
-            "first_name": "test",
-            "last_name": "buyer",
-            "payer_id": "322LZYBNZZ9N2",
-            "shipping_address": {
-                "recipient_name": "test buyer",
-                "line1": "1 Main St",
-                "city": "San Jose",
-                "state": "CA",
-                "postal_code": "95131",
-                "country_code": "US"
-            }
-        }
-    },
     "plan": {
+        "id": "P-5AL77472HW5886222X7VNXYY",
+        "state": "ACTIVE",
+        "name": "Plan with Regular and Trial Payment Definitions",
+        "description": "Plan with regular and trial payment definitions.",
+        "type": "FIXED",
         "payment_definitions": [{
-            "type": "TRIAL",
-            "frequency": "Week",
-            "amount": {
-                "value": "9.19"
+                "id": "PD-7VK25515LU3553114X7VNXYY",
+                "name": "Regular payment definition",
+                "type": "REGULAR",
+                "frequency": "Month",
+                "amount": {
+                    "currency": "USD",
+                    "value": "100"
+                },
+                "cycles": "12",
+                "charge_models": [{
+                        "id": "CHM-7HC16534LL9645744X7VNXYY",
+                        "type": "TAX",
+                        "amount": {
+                            "currency": "USD",
+                            "value": "12"
+                        }
+                    },
+                    {
+                        "id": "CHM-1RV34914MX185270UX7VNXYY",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency": "USD",
+                            "value": "10"
+                        }
+                    }
+                ],
+                "frequency_interval": "2"
             },
-            "cycles": "2",
-            "charge_models": [{
-                "type": "TAX",
+            {
+                "id": "PD-3V457705VA028060TX7VNXYY",
+                "name": "Trial payment definition",
+                "type": "TRIAL",
+                "frequency": "Week",
                 "amount": {
-                    "value": "2.00"
-                }
-            }, {
-                "type": "SHIPPING",
-                "amount": {
-                    "value": "1.00"
-                }
-            }],
-            "frequency_interval": "5"
-        }, {
-            "type": "REGULAR",
-            "frequency": "Month",
-            "amount": {
-                "value": "100.00"
-            },
-            "cycles": "12",
-            "charge_models": [{
-                "type": "TAX",
-                "amount": {
-                    "value": "12.00"
-                }
-            }, {
-                "type": "SHIPPING",
-                "amount": {
-                    "value": "10.00"
-                }
-            }],
-            "frequency_interval": "2"
-        }],
+                    "currency": "USD",
+                    "value": "9.19"
+                },
+                "cycles": "2",
+                "charge_models": [{
+                        "id": "CHM-7Y064225P0813300GX7VNXYY",
+                        "type": "TAX",
+                        "amount": {
+                            "currency": "USD",
+                            "value": "2"
+                        }
+                    },
+                    {
+                        "id": "CHM-5L719667TM4756825X7VNXYY",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency": "USD",
+                            "value": "1"
+                        }
+                    }
+                ],
+                "frequency_interval": "5"
+            }
+        ],
         "merchant_preferences": {
             "setup_fee": {
-                "value": "1.00"
+                "currency": "USD",
+                "value": "1"
             },
             "max_fail_attempts": "0",
-            "auto_bill_amount": "YES"
-        },
-        "links": [],
-        "currency_code": "USD"
+            "return_url": "https://paypal-test-integration.herokuapp.com/paypal/billing-agreement/execute",
+            "cancel_url": "https://paypal-test-integration.herokuapp.com/paypal/cancel",
+            "auto_bill_amount": "YES",
+            "initial_fail_amount_action": "CONTINUE"
+        }
     },
     "links": [{
-        "href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-MFTL6KC1URJP",
-        "rel": "self",
-        "method": "GET"
-    }],
-    "start_date": "2017-12-22T08:00:00Z",
-    "shipping_address": {
-        "recipient_name": "test buyer",
-        "line1": "1 Main St",
-        "city": "San Jose",
-        "state": "CA",
-        "postal_code": "95131",
-        "country_code": "US"
-    },
-    "agreement_details": {
-        "outstanding_balance": {
-            "value": "0.00"
+            "href": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-97P56074CA987452R",
+            "rel": "approval_url",
+            "method": "REDIRECT"
         },
-        "cycles_remaining": "2",
-        "cycles_completed": "0",
-        "next_billing_date": "2017-12-22T10:00:00Z",
-        "last_payment_date": "2017-06-06T10:54:37Z",
-        "last_payment_amount": {
-            "value": "1.00"
-        },
-        "final_payment_date": "2020-01-02T10:00:00Z",
-        "failed_payment_count": "0"
-    },
-    "httpStatusCode": 200
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/EC-97P56074CA987452R/agreement-execute",
+            "rel": "execute",
+            "method": "POST"
+        }
+    ],
+    "start_date": "2017-12-22T09:13:49Z",
+    "httpStatusCode": 201
 }

@@ -43,10 +43,10 @@ export default function () {
     api.post('/billing-agreement', (req: Request, res: Response) => {
         console.log('Creating billing plan')
         // Fetching billing agreement. This should come in the post object
-        let billing_agreement_obj = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement.json', 'utf-8'))
-        if (billing_agreement_obj) {
-            // Fetching billing agreement attributes. This should be fetched from a database
-            let billing_agreement_attributes = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement-attr.json', 'utf-8'))
+        let billing_plan = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement.json', 'utf-8'))
+        if (billing_plan) {
+            // Fetching billing agreement. This should be fetched from a database
+            let billing_agreement = JSON.parse(fs.readFileSync(__dirname + '/samples/sample-billing-agreement-attr.json', 'utf-8'))
             // Fetching attribute object that sets the plan to ACTIVE
             let billing_plan_update_attributes = [{
                 'op': 'replace',
@@ -56,7 +56,7 @@ export default function () {
                 }
             }]
             //Creating billing plan
-            PaypalSdk.billingPlan.create(billing_agreement_obj, (err: any, billingPlan: any) => {
+            PaypalSdk.billingPlan.create(billing_plan, (err: any, billingPlan: any) => {
                 if (err) {
                     console.log(err)
                     res.send(err)
@@ -67,9 +67,9 @@ export default function () {
                             console.log(err)
                             res.send(err)
                         } else {
-                            billing_agreement_attributes.plan.id = billingPlan.id
+                            billing_agreement.plan.id = billingPlan.id
                             // Use activated billing plan to create agreement
-                            PaypalSdk.billingAgreement.create(billing_agreement_attributes, (err: any, billingAgreement: any) => {
+                            PaypalSdk.billingAgreement.create(billing_agreement, (err: any, billingAgreement: any) => {
                                 if (err) {
                                     console.log(err)
                                     res.send(err)
@@ -97,11 +97,13 @@ export default function () {
     api.patch('/billing-agreement/update', (req: Request, res: Response) => {
 
         let actualBillingPlan: any = null
+        //console.log("Request = ", req.body)
 
-        PaypalSdk.billingPlan.get(req.body.id, function (err: any, actualBillingPlan: any) {
+        PaypalSdk.billingAgreement.get(req.body.id, function (err: any, actualBillingPlan: any) {
             if (err) {
-                console.log(err);
+                console.log(err)
             } else {
+                //console.log("Billing plan! = ", actualBillingPlan)
                 actualBillingPlan = actualBillingPlan
             }
         })
@@ -119,14 +121,16 @@ export default function () {
 
         let billing_plan_update_attributes = [
             {
-                'op': 'replace',
-                'path': '/',
-                'value': req.body.update_data
+                "op": "replace",
+                "path": "/",
+                "value": req.body.update_data
             }
-        ]
+        ];
+
+        console.log("Update attrs = ", billing_plan_update_attributes)
 
         //If valid billing plan, updating it's state to ACTIVE
-        PaypalSdk.billingPlan.update(req.body.id, billing_plan_update_attributes, (err: any, response: any) => {
+        PaypalSdk.billingAgreement.update(req.body.id, billing_plan_update_attributes, (err: any, response: any) => {
             if (err) {
                 console.log(err)
                 res.send(err)
