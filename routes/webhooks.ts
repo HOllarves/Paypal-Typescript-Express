@@ -63,8 +63,6 @@ export default function () {
                 console.log(req.body.event_type)
                 console.log(req.body.summary)
                 console.log(req.body.resource.name)
-                let subscription = mapDataToSubscription(req.body)
-                console.log(subscription)
                 console.log("Request = ", JSON.stringify(req.body));
                 break
             case 'BILLING.PLAN.UPDATED':
@@ -83,10 +81,8 @@ export default function () {
                 break
             case 'BILLING.SUBSCRIPTION.CREATED':
                 console.log('Billing subscription created!')
-                console.log(req.body.event_type)
-                console.log(req.body.summary)
-                console.log(req.body.resource.name)
-                console.log("Request = ", JSON.stringify(req.body));
+                let subscription = mapDataToSubscription(req.body)
+                console.log(subscription)
                 break
             case 'BILLING.SUBSCRIPTION.RE-ACTIVATED':
                 console.log('Billing subscription reactivated')
@@ -120,6 +116,7 @@ export default function () {
     })
 
     function mapDataToSubscription(response: any) {
+
         let subscription = {
             gatewayOriginalObject: '',
             date: '',
