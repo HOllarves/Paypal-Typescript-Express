@@ -20,11 +20,18 @@
   "dependencies": {
     "@types/body-parser": "^1.16.3",
     "@types/express": "^4.0.35",
+    "@types/express-session": "^1.15.0",
+    "@types/passport": "^0.3.3",
+    "@types/request": "0.0.44",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "fs": "0.0.1-security",
+    "passport": "^0.3.2",
+    "passport-paypal-openidconnect": "^0.1.1",
     "path": "^0.12.7",
     "paypal-rest-sdk": "^1.7.1",
+    "request": "^2.81.0",
     "typescript": "^2.3.3"
   },
   "devDependencies": {

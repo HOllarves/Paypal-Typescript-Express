@@ -1,14 +1,14 @@
 {
-    "name": "Some Awesome Agreement",
-    "description": "Some Awesome Description",
+    "name": "Plan with Regular and Trial Payment Definitions",
+    "description": "Plan with regular and trial payment definitions.",
     "plan": {
-        "id": "P-5AL77472HW5886222X7VNXYY",
+        "id": "P-2W787371N35243918KQ6YYRI",
         "state": "ACTIVE",
         "name": "Plan with Regular and Trial Payment Definitions",
         "description": "Plan with regular and trial payment definitions.",
         "type": "FIXED",
         "payment_definitions": [{
-                "id": "PD-7VK25515LU3553114X7VNXYY",
+                "id": "PD-8VK85859JA837725EKQ6YYRI",
                 "name": "Regular payment definition",
                 "type": "REGULAR",
                 "frequency": "Month",
@@ -18,7 +18,7 @@
                 },
                 "cycles": "12",
                 "charge_models": [{
-                        "id": "CHM-7HC16534LL9645744X7VNXYY",
+                        "id": "CHM-64M09872M68349438KQ6YYRI",
                         "type": "TAX",
                         "amount": {
                             "currency": "USD",
@@ -26,7 +26,7 @@
                         }
                     },
                     {
-                        "id": "CHM-1RV34914MX185270UX7VNXYY",
+                        "id": "CHM-5BH89601KL490074LKQ6YYRI",
                         "type": "SHIPPING",
                         "amount": {
                             "currency": "USD",
@@ -37,7 +37,7 @@
                 "frequency_interval": "2"
             },
             {
-                "id": "PD-3V457705VA028060TX7VNXYY",
+                "id": "PD-2NH89752RX3506544KQ6YYRI",
                 "name": "Trial payment definition",
                 "type": "TRIAL",
                 "frequency": "Week",
@@ -47,7 +47,7 @@
                 },
                 "cycles": "2",
                 "charge_models": [{
-                        "id": "CHM-7Y064225P0813300GX7VNXYY",
+                        "id": "CHM-4T659261P27105907KQ6YYRI",
                         "type": "TAX",
                         "amount": {
                             "currency": "USD",
@@ -55,7 +55,7 @@
                         }
                     },
                     {
-                        "id": "CHM-5L719667TM4756825X7VNXYY",
+                        "id": "CHM-10H58206AH499545FKQ6YYRI",
                         "type": "SHIPPING",
                         "amount": {
                             "currency": "USD",
@@ -72,19 +72,19 @@
                 "value": "1"
             },
             "max_fail_attempts": "0",
-            "return_url": "https://paypal-test-integration.herokuapp.com/paypal/billing-agreement/execute",
+            "return_url": "https://paypal-test-integration.herokuapp.com/",
             "cancel_url": "https://paypal-test-integration.herokuapp.com/paypal/cancel",
             "auto_bill_amount": "YES",
             "initial_fail_amount_action": "CONTINUE"
         }
     },
     "links": [{
-            "href": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-97P56074CA987452R",
+            "href": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-783856409X232451L",
             "rel": "approval_url",
             "method": "REDIRECT"
         },
         {
-            "href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/EC-97P56074CA987452R/agreement-execute",
+            "href": "https://api.sandbox.paypal.com/v1/payments/billing-agreements/EC-783856409X232451L/agreement-execute",
             "rel": "execute",
             "method": "POST"
         }

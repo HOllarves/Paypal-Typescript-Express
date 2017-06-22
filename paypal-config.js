@@ -6,6 +6,7 @@ module.exports = function (PaypalSDK) {
         'client_secret': 'EHPCjLD3GO6w7O0VwlDLk4z1YrCrDzZr23cQ3EcR2O2wW-NMyT91o9fL4sW8p-ljHParrzEBE1L1VL_j',
         'headers': {
             'custom': 'header'
-        }
+        },
+        'openid_redirect_uri': 'http://localhost/paypal/token'
     })
 }

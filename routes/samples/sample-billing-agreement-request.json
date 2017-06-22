@@ -1,0 +1,19 @@
+{
+    "name": "Magazine Subscription",
+    "description": "Monthly subscription with a regular monthly payment definition and two-month trial payment definition.",
+    "start_date": "2017-12-22T09:13:49Z",
+    "plan": {
+        "id": "P-2W787371N35243918KQ6YYRI"
+    },
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "shipping_address": {
+        "line1": "751235 Stout Drive",
+        "line2": "0976249 Elizabeth Court",
+        "city": "Quimby",
+        "state": "IA",
+        "postal_code": "51049",
+        "country_code": "US"
+    }
+}

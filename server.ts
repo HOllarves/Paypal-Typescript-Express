@@ -2,6 +2,9 @@ import * as Express from 'express'
 import * as BodyParser from 'body-parser'
 import * as paypalRouter from './routes/paypal'
 import * as webhookRouter from './routes/webhooks'
+import * as path from 'path'
+
+const PayPalStrategy = require('passport-paypal-openidconnect').Strategy
 
 export class Server {
 
@@ -15,6 +18,7 @@ export class Server {
     constructor() {
         this.app = Express()
         this.app.use(BodyParser.json())
+        this.app.use(BodyParser.urlencoded({ extended: true }))
         this.api()
         this.webhooks()
     }
@@ -32,8 +36,9 @@ export class Server {
 }
 
 const server = Server.bootstrap().app
-server.set("port", process.env.PORT || 4500)
 
+
+server.set("port", process.env.PORT || 4500)
 server.listen(server.get("port"), () => {
     console.log("App running on", server.get("port"))
 })

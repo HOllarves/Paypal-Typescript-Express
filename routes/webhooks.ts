@@ -63,6 +63,7 @@ export default function () {
                 console.log(req.body.event_type)
                 console.log(req.body.summary)
                 console.log(req.body.resource.name)
+                mapDataToTransaction(req.body)
                 console.log("Request = ", JSON.stringify(req.body));
                 break
             case 'BILLING.PLAN.UPDATED':
@@ -116,6 +117,67 @@ export default function () {
                 break
         }
     })
+
+    function mapDataToTransaction(response: any) {
+        let subscription = {
+            gatewayOriginalObject: '',
+            date: '',
+            periodStart: '',
+            periodEnd: null,
+            planId: '',
+            planName: '',
+            planAmount: '',
+            currency: '',
+            previousPlanId: '',
+            previousPlanName: '',
+            previousPlanAmount: '',
+            type: '',
+            planInterval: '',
+            status: ''
+
+        }
+        subscription.gatewayOriginalObject = JSON.stringify(response);
+        subscription.date = response.create_time;
+        subscription.periodStart = response.resource.create_time;
+        subscription.periodEnd = null;
+        subscription.planId = response.resource.id;
+        subscription.planName = response.resource.name;
+        subscription.planAmount = response.resource.payment_definitions[0].amount.value;
+        subscription.currency = response.resource.payment_definitions[0].amount.currency;
+        if (response.bodyType == "updated") {
+            subscription.previousPlanId = response.previous_attributes.id;
+            subscription.previousPlanName = response.previous_attributes.description;
+            subscription.previousPlanAmount = response.previous_attributes.plan.payment_definitions[0].amount.value;
+            if (subscription.previousPlanAmount < subscription.planAmount) {
+                subscription.type = 'Upgrade'
+            } else if (subscription.previousPlanAmount > subscription.planAmount) {
+                subscription.type = 'Downgrade'
+            } else if (subscription.previousPlanAmount > subscription.planAmount) {
+                subscription.type = 'Other'
+            } else {
+                subscription.type = 'Other'
+            }
+        } else if (response.bodyType == "created") {
+            subscription.type = 'Created'
+        }
+        switch (response.resource.payment_definitions[0].frequency) {
+            case "Month":
+                subscription.planInterval = 'Monthly'
+                break;
+            default:
+                subscription.planInterval = '';
+                break;
+        }
+        switch (response.resource.state) {
+            case "CREATED":
+                subscription.status = 'Active'
+                break;
+            default:
+                subscription.status = 'Closed'
+                break;
+        }
+        return subscription;
+    }
 
     return {
         api: api,

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <span id='lippButton'></span>
+    <script src='https://www.paypalobjects.com/js/external/api.js'></script>
+    <script>
+        paypal.use(['login'], function (login) {
+            login.render({
+                "appid": "Af06llQQrJ0OAvPXu2JogElHIWcYxMSqIPLHE9ZvDxgOi-rN6NsHVUXmf0pK5W5C1mgBAU8IvzQ3se8i",
+                "authend": "sandbox",
+                "scopes": "openid profile",
+                "containerid": "lippButton",
+                "locale": "en-us",
+                "returnurl": "http://localhost:4500/paypal/callback"
+            });
+        });
+    </script>
+</body>
+
+</html>
