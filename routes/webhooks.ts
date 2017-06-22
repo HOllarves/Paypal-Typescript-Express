@@ -81,6 +81,7 @@ export default function () {
                 break
             case 'BILLING.SUBSCRIPTION.CREATED':
                 console.log('Billing subscription created!')
+                req.body.bodyType = "created"
                 let subscription = mapDataToSubscription(req.body)
                 console.log("Subscription = ", subscription)
                 break
@@ -141,7 +142,7 @@ export default function () {
         subscription.planId = response.resource.id;
         subscription.planName = response.resource.description;
         subscription.planAmount = response.resource.plan.payment_definitions[0].amount.value;
-        subscription.currency = response.resource.plan.payment_definitions[0].amount.currency;;
+        subscription.currency = response.resource.plan.curr_code;
         if (response.bodyType == "updated") {
             subscription.previousPlanId = response.previous_attributes.id;
             subscription.previousPlanName = response.previous_attributes.description;
