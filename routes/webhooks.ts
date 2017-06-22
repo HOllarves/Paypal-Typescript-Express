@@ -274,7 +274,7 @@ export default function () {
         if (response.bodyType == "updated") {
             subscription.previousPlanId = response.previous_attributes.id;
             subscription.previousPlanName = response.previous_attributes.description;
-            subscription.previousPlanAmount = response.previous_attributes.plan.payment_definitions[0].amount.value;
+            subscription.previousPlanAmount = response.previous_attributes.resource.plan.payment_definitions[0].amount.value;
             if (subscription.previousPlanAmount < subscription.planAmount) {
                 subscription.type = 'Upgrade'
             } else if (subscription.previousPlanAmount > subscription.planAmount) {
