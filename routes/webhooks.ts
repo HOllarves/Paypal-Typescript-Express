@@ -63,7 +63,8 @@ export default function () {
                 console.log(req.body.event_type)
                 console.log(req.body.summary)
                 console.log(req.body.resource.name)
-                mapDataToTransaction(req.body)
+                let subscription = mapDataToSubscription(req.body)
+                console.log(subscription)
                 console.log("Request = ", JSON.stringify(req.body));
                 break
             case 'BILLING.PLAN.UPDATED':
@@ -118,7 +119,7 @@ export default function () {
         }
     })
 
-    function mapDataToTransaction(response: any) {
+    function mapDataToSubscription(response: any) {
         let subscription = {
             gatewayOriginalObject: '',
             date: '',
