@@ -37,10 +37,13 @@ export default function () {
                         console.log(userinfo);
                         // Logout url
                         console.log(openIdconnect.logoutUrl({ 'id_token': tokeninfo.id_token }));
+                        //return res.send('<script>window.close()</script>');
                         return res.send({
                             access_token: tokeninfo.access_token,
+                            refresh_token: tokeninfo.refresh_token,
                             id: userinfo.user_id,
-                            logout_url: openIdconnect.logoutUrl({ 'id_token': tokeninfo.id_token })
+                            logout_url: openIdconnect.logoutUrl({ 'id_token': tokeninfo.id_token }),
+                            user: userinfo
                         });
                     }
                 });

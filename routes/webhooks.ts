@@ -272,9 +272,9 @@ export default function () {
         subscription.planAmount = response.resource.plan.payment_definitions[0].amount.value;
         subscription.currency = response.resource.plan.curr_code;
         if (response.bodyType == "updated") {
-            subscription.previousPlanId = response.previous_attributes.resource.id;
-            subscription.previousPlanName = response.previous_attributes.resource.description;
-            subscription.previousPlanAmount = response.previous_attributes.resource.plan.payment_definitions[0].amount.value;
+            subscription.previousPlanId = response.previous_attributes.planId;
+            subscription.previousPlanName = response.previous_attributes.planName;
+            subscription.previousPlanAmount = response.previous_attributes.planAmount;
             if (subscription.previousPlanAmount < subscription.planAmount) {
                 subscription.type = 'Upgrade'
             } else if (subscription.previousPlanAmount > subscription.planAmount) {
