@@ -138,7 +138,7 @@ export default function () {
         subscription.gatewayOriginalObject = JSON.stringify(response);
         subscription.date = response.create_time;
         subscription.periodStart = response.resource.start_date;
-        subscription.periodEnd = response.agreement_details.final_payment_due_date;
+        subscription.periodEnd = response.resource.agreement_details.final_payment_due_date;
         subscription.planId = response.resource.id;
         subscription.planName = response.resource.description;
         subscription.planAmount = response.resource.plan.payment_definitions[0].amount.value;
