@@ -82,7 +82,7 @@ export default function () {
             case 'BILLING.SUBSCRIPTION.CREATED':
                 console.log('Billing subscription created!')
                 let subscription = mapDataToSubscription(req.body)
-                console.log(subscription)
+                console.log("Subscription = ", subscription)
                 break
             case 'BILLING.SUBSCRIPTION.RE-ACTIVATED':
                 console.log('Billing subscription reactivated')
@@ -134,7 +134,6 @@ export default function () {
             status: ''
 
         }
-        console.log(response)
         subscription.gatewayOriginalObject = JSON.stringify(response);
         subscription.date = response.create_time;
         subscription.periodStart = response.resource.start_date;
