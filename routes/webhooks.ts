@@ -137,12 +137,12 @@ export default function () {
         console.log(response)
         subscription.gatewayOriginalObject = JSON.stringify(response);
         subscription.date = response.create_time;
-        subscription.periodStart = response.resource.create_time;
-        subscription.periodEnd = null;
+        subscription.periodStart = response.resource.start_date;
+        subscription.periodEnd = response.agreement_details.final_payment_due_date;
         subscription.planId = response.resource.id;
-        subscription.planName = response.resource.name;
-        subscription.planAmount = response.resource.payment_definitions[0].amount.value;
-        subscription.currency = response.resource.payment_definitions[0].amount.currency;
+        subscription.planName = response.resource.description;
+        subscription.planAmount = response.resource.plan.payment_definitions[0].amount.value;
+        subscription.currency = response.resource.plan.payment_definitions[0].amount.currency;
         if (response.bodyType == "updated") {
             subscription.previousPlanId = response.previous_attributes.id;
             subscription.previousPlanName = response.previous_attributes.description;
@@ -159,7 +159,7 @@ export default function () {
         } else if (response.bodyType == "created") {
             subscription.type = 'Created'
         }
-        switch (response.resource.payment_definitions[0].frequency) {
+        switch (response.resource.plan.payment_definitions[0].frequency) {
             case "Month":
                 subscription.planInterval = 'Monthly'
                 break;
