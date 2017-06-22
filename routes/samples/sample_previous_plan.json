@@ -1,0 +1,15 @@
+{
+    "date": "2016-04-28T11:29:31Z",
+    "periodStart": "2016-04-30T07:00:00Z",
+    "periodEnd": "2017-11-30T10:00:00Z",
+    "planId": "I-PE7JWXKGVN0R",
+    "planName": "desc",
+    "planAmount": "5.00",
+    "currency": "USD",
+    "previousPlanId": "",
+    "previousPlanName": "",
+    "previousPlanAmount": "",
+    "type": "Created",
+    "planInterval": "Monthly",
+    "status": "Closed"
+}
