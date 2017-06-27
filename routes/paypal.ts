@@ -54,6 +54,16 @@ export default function () {
                                 name: 'BILLING.SUBSCRIPTION.UPDATED'
                             }, {
                                 name: 'PAYMENT.AUTHORIZATION.CREATED'
+                            }, {
+                                name: 'PAYMENT.CAPTURE.COMPLETED'
+                            }, {
+                                name: 'PAYMENT.CAPTURE.PENDING'
+                            }, {
+                                name: 'INVOICING.INVOICE.PAID'
+                            }, {
+                                name: 'PAYMENT.ORDER.CREATED'
+                            }, {
+                                name: 'PAYMENT.SALE.COMPLETED'
                             }]
                         }
                         PaypalSdk.notification.webhook.create(webhooks, function (err: any, webhook: any) {
