@@ -29,7 +29,7 @@ export class Server {
     }
 
     public webhooks() {
-        webhookRouter.default().init()
+        // webhookRouter.default().init()
         // Exposing endpoint
         this.app.use('/webhooks', webhookRouter.default().api)
     }
